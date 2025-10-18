@@ -4,8 +4,8 @@ function add(text) {
     return 0;
   }
 
-  // 쉼표(,)를 기준으로 문자열을 분리하여 숫자 배열로 만듦
-  const numbers = text.split(",").map(Number);
+  // 쉼표(,) 또는 콜론(:)을 구분자로 사용하도록 정규표현식으로 변경
+  const numbers = text.split(/[,:]/).map(Number);
 
   // 배열의 모든 숫자를 더함
   const sum = numbers.reduce((acc, current) => acc + current, 0);
