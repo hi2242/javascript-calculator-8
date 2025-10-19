@@ -9,8 +9,10 @@ function add(text) {
 
   // '//'로 시작한다면 커스텀 구분자 찾기
   if (text.startsWith("//")) {
+    // 문자열의 줄바꿈 \\n에서 \n로 수정한 문자열
+    const NORMAL_TEXT = text.replace(/\\n/g, "\n");
     // 첫 번째 줄바꿈(\n)을 기준으로 구분자 라인과 숫자 문자열 라인을 분리
-    const PARTS = text.split("\n");
+    const PARTS = NORMAL_TEXT.split("\n");
     if (PARTS.length < 2) {
       console.log("[ERROR] 커스텀 구분자 형식이 올바르지 않습니다.");
       throw new Error("[ERROR] 커스텀 구분자 형식이 올바르지 않습니다.");
