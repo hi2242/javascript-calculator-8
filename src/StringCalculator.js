@@ -46,6 +46,11 @@ function add(text) {
 
   // 각 문자열을 숫자로 변환 (빈 문자열은 0으로 취급)
   const NUMBERS = STRING_NUMBERS.map((str) => {
+    // trim() 하기 전에 공백이 존재하면 에러로 처리 (커스텀 구분자가 공백이 아니기 때문)
+    if (str !== "" && /\s/.test(str)) {
+      console.log("[ERROR] 구분자 사이에는 숫자만 입력 가능합니다.");
+      throw new Error("[ERROR] 구분자 사이에는 숫자만 입력 가능합니다.");
+    }
     const TRIMMED = str.trim();
     if (TRIMMED === "") return 0;
 
