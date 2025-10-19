@@ -61,7 +61,6 @@ function add(text) {
 
     return Number(TRIMMED);
   });
-  console.log(NUMBERS);
 
   for (const NUM of NUMBERS) {
     if (isNaN(NUM)) {
