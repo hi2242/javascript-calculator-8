@@ -43,20 +43,39 @@ function add(text) {
 
   // 구분자로 문자열 분리
   const STRING_NUMBERS = numbersText.split(delimiters);
-  
+
   // 각 문자열을 숫자로 변환 (빈 문자열은 0으로 취급)
-  const NUMBERS = STRING_NUMBERS.map((str) =>
-    str.trim() === "" ? 0 : Number(str)
-  );
-  
+  const NUMBERS = STRING_NUMBERS.map((str) => {
+    const TRIMMED = str.trim();
+    if (TRIMMED === "") return 0;
+
+    if (TRIMMED === "0") {
+      console.log("[ERROR] 양수만 입력 가능합니다.");
+      throw new Error("[ERROR] 양수만 입력 가능합니다.");
+    }
+
+    return Number(TRIMMED);
+  });
+  console.log(NUMBERS);
+
   for (const NUM of NUMBERS) {
     if (isNaN(NUM)) {
       console.log("[ERROR] 구분자 사이에는 숫자만 입력 가능합니다.");
       throw new Error("[ERROR] 구분자 사이에는 숫자만 입력 가능합니다.");
     }
-    if (customDelimiter !== '-' && NUM <= 0) {
-      console.log("[ERROR] 양수만 계산 가능합니다.");
-      throw new Error("[ERROR] 양수만 계산 가능합니다.");
+
+    // 음수 또는 0이 존재하는 경우 (단, 커스텀 구분자가 '-'인 경우는 허용)
+    if (NUM <= 0) {
+      // 빈 문자열로부터 변환된 0은 허용
+      if (NUM === 0 && STRING_NUMBERS[NUMBERS.indexOf(NUM)].trim() === "") {
+        continue;
+      }
+
+      // 그 외에는 에러
+      if (customDelimiter !== "-") {
+        console.log("[ERROR] 양수만 입력 가능합니다.");
+        throw new Error("[ERROR] 양수만 입력 가능합니다.");
+      }
     }
   }
 
