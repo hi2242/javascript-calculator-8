@@ -12,7 +12,8 @@ function add(text) {
     // 첫 번째 줄바꿈(\n)을 기준으로 구분자 라인과 숫자 문자열 라인을 분리
     const PARTS = text.split("\n");
     if (PARTS.length < 2) {
-      throw new Error("커스텀 구분자 형식이 올바르지 않습니다.");
+      console.log("[ERROR] 커스텀 구분자 형식이 올바르지 않습니다.");
+      throw new Error("[ERROR] 커스텀 구분자 형식이 올바르지 않습니다.");
     }
     const DELIMITER_LINE = PARTS[0];
     // 두 번째 부분부터 숫자 문자열
@@ -22,7 +23,8 @@ function add(text) {
     const CUSTOM_DELIMITER = DELIMITER_LINE.substring(2);
     // 커스텀 구분자는 문자열이 아닌 문자
     if (CUSTOM_DELIMITER.length !== 1) {
-      throw new Error("커스텀 구분자는 한 글자여야 합니다.");
+      console.log("[ERROR] 커스텀 구분자는 한 글자여야 합니다.");
+      throw new Error("[ERROR] 커스텀 구분자는 한 글자여야 합니다.");
     }
 
     // 특수문자 이스케이프 처리
@@ -44,10 +46,12 @@ function add(text) {
 
   for (const NUM of NUMBERS) {
     if (isNaN(NUM)) {
-      throw new Error("구분자 사이에는 숫자만 입력 가능합니다.");
+      console.log("[ERROR] 구분자 사이에는 숫자만 입력 가능합니다.");
+      throw new Error("[ERROR] 구분자 사이에는 숫자만 입력 가능합니다.");
     }
     if (NUM < 0) {
-      throw new Error("음수는 입력할 수 없습니다.");
+      console.log("[ERROR] 음수는 입력할 수 없습니다.");
+      throw new Error("[ERROR] 음수는 입력할 수 없습니다.");
     }
   }
 
