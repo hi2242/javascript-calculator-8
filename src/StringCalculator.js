@@ -51,9 +51,9 @@ function add(text) {
       console.log("[ERROR] 구분자 사이에는 숫자만 입력 가능합니다.");
       throw new Error("[ERROR] 구분자 사이에는 숫자만 입력 가능합니다.");
     }
-    if (NUM < 0) {
-      console.log("[ERROR] 음수는 입력할 수 없습니다.");
-      throw new Error("[ERROR] 음수는 입력할 수 없습니다.");
+    if (NUM <= 0) {
+      console.log("[ERROR] 양수만 계산 가능합니다.");
+      throw new Error("[ERROR] 양수만 계산 가능합니다.");
     }
   }
 
