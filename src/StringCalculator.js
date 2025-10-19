@@ -7,9 +7,11 @@ function add(text) {
   let delimiters = /[,:]/;
   let numbersText = text;
 
+  // '-'인 경우를 예외처리 하기 위해 Scope 밖에서 선언
+  let customDelimiter = null;
   // '//'로 시작한다면 커스텀 구분자 찾기
   if (text.startsWith("//")) {
-    // 문자열의 줄바꿈 \\n에서 \n로 수정한 문자열
+    // 문자열 리터럴의 줄바꿈 \\n에서 \n로 수정한 문자열
     const NORMAL_TEXT = text.replace(/\\n/g, "\n");
     // 첫 번째 줄바꿈(\n)을 기준으로 구분자 라인과 숫자 문자열 라인을 분리
     const PARTS = NORMAL_TEXT.split("\n");
@@ -22,15 +24,16 @@ function add(text) {
     numbersText = PARTS[1];
 
     // '//'를 제외하여 커스텀 구분자 추출
-    const CUSTOM_DELIMITER = DELIMITER_LINE.substring(2);
+    customDelimiter = DELIMITER_LINE.substring(2);
+
     // 커스텀 구분자는 문자열이 아닌 문자
-    if (CUSTOM_DELIMITER.length !== 1) {
+    if (customDelimiter.length !== 1) {
       console.log("[ERROR] 커스텀 구분자는 한 글자여야 합니다.");
       throw new Error("[ERROR] 커스텀 구분자는 한 글자여야 합니다.");
     }
 
     // 특수문자 이스케이프 처리
-    const ESCAPED_DELIMITER = CUSTOM_DELIMITER.replace(
+    const ESCAPED_DELIMITER = customDelimiter.replace(
       /[.*+?^${}()|[\]\\]/g,
       "\\$&"
     );
@@ -40,18 +43,18 @@ function add(text) {
 
   // 구분자로 문자열 분리
   const STRING_NUMBERS = numbersText.split(delimiters);
-
+  
   // 각 문자열을 숫자로 변환 (빈 문자열은 0으로 취급)
   const NUMBERS = STRING_NUMBERS.map((str) =>
     str.trim() === "" ? 0 : Number(str)
   );
-
+  
   for (const NUM of NUMBERS) {
     if (isNaN(NUM)) {
       console.log("[ERROR] 구분자 사이에는 숫자만 입력 가능합니다.");
       throw new Error("[ERROR] 구분자 사이에는 숫자만 입력 가능합니다.");
     }
-    if (NUM <= 0) {
+    if (customDelimiter !== '-' && NUM <= 0) {
       console.log("[ERROR] 양수만 계산 가능합니다.");
       throw new Error("[ERROR] 양수만 계산 가능합니다.");
     }
