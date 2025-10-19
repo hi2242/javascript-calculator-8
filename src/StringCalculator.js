@@ -33,7 +33,7 @@ function add(text) {
       "\\$&"
     );
     // 기존 구분자와 커스텀 구분자를 모두 포함하는 새 정규표현식을 생성
-    delimiters = new RegExp(`[,:${CUSTOM_DELIMITER}]`);
+    delimiters = new RegExp(`[,:${ESCAPED_DELIMITER}]`);
   }
 
   // 구분자로 문자열 분리
